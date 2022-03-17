@@ -26,6 +26,7 @@ class MyBodyPage extends StatefulWidget {
 }
 
 class _MyBodyPageState extends State<MyBodyPage> {
+  bool myChange = false;
   @override
   TextEditingController txtBirthdate = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
@@ -61,10 +62,10 @@ class _MyBodyPageState extends State<MyBodyPage> {
                 ),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 20),
               child: Text(
-                'Welcome\nBack',
+                'Welcome\nBack ',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 40,
@@ -213,47 +214,92 @@ class _MyBodyPageState extends State<MyBodyPage> {
                         keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(height: 20),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 60,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(15)))),
-                          onPressed: () {
-                            // myGlobleKey.currentState!.validate();
-                            // Navigator.of(context).push(
-                            //   CupertinoPageRoute(
-                            //     builder: (context) => MyInputInfo(
-                            //       Name: txtName.text,
-                            //       Email_phone: txtEmailPhone.text,
-                            //       Birthdate: txtBirthdate.text,
-                            //       Password: txtPassword.text,
-                            //     ),
-                            //   ),
-                            // );
-                            if (myGlobleKey.currentState!.validate()) {
-                              Navigator.of(context).push(
-                                CupertinoPageRoute(
-                                  builder: (context) => MyInputInfo(
-                                    Name: txtName.text,
-                                    Email_phone: txtEmailPhone.text,
-                                    Birthdate: txtBirthdate.text,
-                                    Password: txtPassword.text,
+                      // SizedBox(
+                      //   width: double.infinity,
+                      //   height: 60,
+                      //   child: ElevatedButton(
+                      //     style: ButtonStyle(
+                      //         shape: MaterialStateProperty.all(
+                      //             RoundedRectangleBorder(
+                      //                 borderRadius:
+                      //                     BorderRadius.circular(15)))),
+                      //     onPressed: () {
+                      //       // myGlobleKey.currentState!.validate();
+                      //       // Navigator.of(context).push(
+                      //       //   CupertinoPageRoute(
+                      //       //     builder: (context) => MyInputInfo(
+                      //       //       Name: txtName.text,
+                      //       //       Email_phone: txtEmailPhone.text,
+                      //       //       Birthdate: txtBirthdate.text,
+                      //       //       Password: txtPassword.text,
+                      //       //     ),
+                      //       //   ),
+                      //       // );
+                      //       if (myGlobleKey.currentState!.validate()) {
+                      //         Navigator.of(context).push(
+                      //           CupertinoPageRoute(
+                      //             builder: (context) => MyInputInfo(
+                      //               Name: txtName.text,
+                      //               Email_phone: txtEmailPhone.text,
+                      //               Birthdate: txtBirthdate.text,
+                      //               Password: txtPassword.text,
+                      //             ),
+                      //           ),
+                      //         );
+                      //       }
+                      //     },
+                      //     child: const Text(
+                      //       'Register',
+                      //       style: TextStyle(
+                      //           fontSize: 20, fontWeight: FontWeight.bold),
+                      //     ),
+                      //   ),
+                      // ),
+                      // ),
+                      InkWell(
+                        onTap: () async {
+                          if (myGlobleKey.currentState!.validate()) {
+                            setState(() {
+                              myChange = true;
+                            });
+                            await Future.delayed(Duration(seconds: 5));
+                            Navigator.of(context).push(
+                              CupertinoPageRoute(
+                                builder: (context) => MyInputInfo(
+                                  Name: txtName.text,
+                                  Email_phone: txtEmailPhone.text,
+                                  Birthdate: txtBirthdate.text,
+                                  Password: txtPassword.text,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        child: AnimatedContainer(
+                          width: myChange ? 50 : 100,
+                          height: 50,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(myChange ? 50 : 10),
+                            color: Colors.deepPurple,
+                          ),
+                          duration: const Duration(seconds: 2),
+                          child: myChange
+                              ? Icon(
+                                  Icons.done,
+                                  color: Colors.white,
+                                )
+                              : Text(
+                                  'Register',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              );
-                            }
-                          },
-                          child: const Text(
-                            'Register',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

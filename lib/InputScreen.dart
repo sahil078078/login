@@ -45,7 +45,7 @@ class MyInputInfo extends StatelessWidget {
                         child: Card(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Center(
+                            child: const Center(
                                 child: Text('You Entered Following Details')))),
                     const SizedBox(height: 10),
                     Container(
